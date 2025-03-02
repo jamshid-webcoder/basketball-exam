@@ -1,0 +1,22 @@
+# Django loyihasida kiritmaslik kerak bo'lgan fayllar
+
+# Muhit sozlamalari
+.env
+
+# Django tomonidan yaratiladigan fayllar
+*.pyc
+__pycache__/
+db.sqlite3
+db.sqlite3-journal
+
+# Statik va media fayllar
+staticfiles/
+media/
+
+# VS Code va PyCharm sozlamalari
+.vscode/
+.idea/
+
+# Migrations'larni avtomatik yaratishdan saqlanish
+**/migrations/*.py
+!**/migrations/__init__.py

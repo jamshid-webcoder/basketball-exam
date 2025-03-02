@@ -1,0 +1,98 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Ro'yxatdan o'tish / Murabbiy" %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'teacher_register.css' %}">
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+</head>
+</head>
+<body>
+    <div class="container mt-5">
+        {% include "navbar.html" %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4>{% trans "Ro'yxatdan o'tish / Murabbiy" %}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url "sign_up_teacher" %}" method="post">
+                            {% csrf_token %}
+
+                            {% if messages %}
+                                <ul>
+                                    {% for message in messages %}
+                                        <li style="color: red;">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            <!-- Ism -->
+                            <div class="row mb-3">
+                            <div class="mb-3 mt-3 col-md-4 text-center">
+                                <label for="firstName" class="form-label fw-bold">{% trans "Ism" %}</label>
+                                <input type="text" class="form-control" id="firstName" name="first_name" placeholder="{% trans "Ismingizni kiriting" %}" required maxlength='16'  value='{{ request.POST.first_name }}'>
+                            </div>
+                            <!-- Sharif -->
+                            <div class="mb-3 mt-3 col-md-4 text-center">
+                                <label for="middleName" class="form-label fw-bold">{% trans "Sharif" %}</label>
+                                <input type="text" class="form-control" id="middleName" name="middle_name" placeholder="{% trans "Sharifingizni kiriting" %}" required maxlength='16' value='{{ request.POST.middle_name }}'>
+                            </div>
+                            <!-- Familiya -->
+                            <div class="mb-3 mt-3 col-md-4 text-center">
+                                <label for="lastName" class="form-label fw-bold">{% trans "Familiya" %}</label>
+                                <input type="text" class="form-control" id="lastName" name="last_name" placeholder="{% trans "Familiyangizni kiriting" %}" required maxlength='16'  value='{{ request.POST.last_name }}'>
+                            </div>
+                            </div>
+                            <!-- Manzil -->
+                            <div class="mb-3">
+                                <label for="address" class="form-label fw-bold">{% trans "Manzil" %}</label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="{% trans "Manzilingizni kiriting" %}" required maxlength='100'  value='{{ request.POST.address }}'>
+                            </div>
+                            <!-- Ish joyi -->
+                            <div class="mb-3">
+                                <label for="workplace" class="form-label fw-bold">{% trans "Ish joyi" %}</label>
+                                <input type="text" class="form-control" id="workplace" name="work_place" placeholder="{% trans "Ish joyingizni kiriting" %}" required maxlength='100'  value='{{ request.POST.work_place }}'> 
+                            </div>
+                            <div class="row mb-3">
+                            <!-- Telefon raqam -->
+                            <div class="mb-3 col-md-6 mt-3 text-center">
+                                <label for="phone" class="form-label fw-bold">{% trans "Telefon raqam" %}</label>
+                                <input type="tel" class="form-control" id="phone" name="phone_number" value='{{request.POST.phone_number }}' placeholder="{% trans "Telefon raqamingizni kiriting" %}" required maxlength='13'>
+                            </div>
+                            <!-- Username -->
+                            <div class="mb-3 col-md-6 mt-3 text-center">
+                                <label for="username" class="form-label fw-bold">{% trans "Foydalanuvchi nomi" %}</label>
+                                <input type="text" class="form-control " id="username" name="username" placeholder="{% trans "Foydalanuvchi nomini kiriting" %}" required maxlength='32'  value='{{ request.POST.username }}'>
+                            </div>
+                            </div>
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-bold">{% trans "Parol" %}</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="{% trans "Parolingizni kiriting" %}" required maxlength="16" pattern="[A-Za-z0-9]{8,}" title=" {% trans "Parolda 8 yoki undan ortiq harf va raqam bo'lishi kerak." %}">
+                            </div>
+                            <!-- Password Confirmation -->
+                            <div class="mb-3">
+                                <label for="passwordConfirmation" class="form-label fw-bold">{% trans "Parolni tasdiqlash" %}</label>
+                                <input type="password" class="form-control" id="passwordConfirmation" name="password_confirmation" placeholder="{% trans "Parolni qayta kiriting" %}" required pattern="[A-Za-z0-9]{8,}" title=" {% trans "Parolda 8 yoki undan ortiq harf va raqam bo'lishi kerak." %}">
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">{% trans "Ro'yxatdan o'tish" %}</button>
+                            </div>
+                        </form>
+                         <div class="text-center mt-3">
+                            <p>{% trans "Allaqachon hisobingiz bormi?" %} <a href="{% url "login" %}" class="text-primary fw-bold">{% trans "Kirish" %}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

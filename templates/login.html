@@ -1,0 +1,51 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Kirish" %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+</head>
+<body>
+    <div class="container">
+        {% include "navbar.html" %}
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <div class="card p-4 shadow-lg">
+            <h2 class="text-center mb-4 fw-bold">{% trans "Hisobga kirish" %}</h2>
+            <form method='post' action='{% url "login" %}'>
+                {% csrf_token %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li style="color: red;">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <!-- Username -->
+                <div class="mb-3">
+                    <label for="username" class="form-label fw-bold">{% trans "Foydalanuvchi " %}</label>
+                    <input type="text" class="form-control" name='username' id="username" placeholder="{% trans "Foydalanuvchi nomini kiriting" %}" required maxlength='32'>
+                </div>
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-bold">{% trans "Parol" %}</label>
+                    <input type="password" class="form-control" id="password" name='password' placeholder="{% trans "Parolingizni kiriting" %}" required maxlength="16" pattern="[A-Za-z0-9]{8,}" title=" Parol8 yoki undan ortiq harf va raqam bo'lishi kerak.">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">{% trans "Kirish" %}</button>
+            </form>
+            <!-- Sign Up Link -->
+            <div class="text-center mt-3">
+                <p>{% trans "Hisobingiz yo'qmi?" %} <a href="{% url "sign_up_student" %}" class="text-primary fw-bold">{% trans "Ro'yxatdan o'tish" %}</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

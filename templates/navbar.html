@@ -1,0 +1,56 @@
+{% load i18n %}
+<!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href=""><strong style='margin-left:30px;'>{% trans "Basketbol imtihoni"|title %}</strong></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url "counter" %}"><b>{% trans "Test" %}</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url "course" %}"><b>{% trans "Kurs" %}</b></a>
+                        </li>
+                        {% if request.user.type == 'teacher' %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <b>{% trans "Ro'yxatdan o'tish" %}</b>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url "sign_up_student" %}"><b>{% trans "Talaba" %}</b></a></li>
+                                <li><a class="dropdown-item" href="{% url "sign_up_teacher" %}"><b>{% trans "Murabbiy" %}</b></a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url "sign_up_student" %}"><b>{% trans "Ro'yxatdan o'tish" %}</b></a>
+                        </li>
+                        {% endif %}
+                        <!-- Language Dropdown -->
+                        <li class="nav-item dropdown language-dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <b>{% trans "Dastur tili" %}</b>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% get_available_languages as available_languages %}
+                                {% get_language_info_list for available_languages as langs %}
+                                {% with request.path|slice:"3:" as current_path %}
+                                    {% for lang in langs %}
+                                        <li><a class="dropdown-item" href="/{{ lang.code }}{{ current_path }}"><b>{{ lang.name_local }}</b></a></li>
+                                    {% endfor %}
+                                {% endwith %}
+                            </ul>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url "logout" %}"><b>{% trans "Chiqish" %}</b></a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
