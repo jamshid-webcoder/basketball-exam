@@ -20,3 +20,4 @@ media/
 # Migrations'larni avtomatik yaratishdan saqlanish
 **/migrations/*.py
 !**/migrations/__init__.py
+venv/
